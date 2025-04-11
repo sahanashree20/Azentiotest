@@ -1,0 +1,97 @@
+1. public class MissingNumber {
+    public static int findMissingNumber(int[] arr, int n) {
+        int total = n * (n + 1) / 2;
+        int sum = 0;
+        for (int num : arr) {
+            sum += num;
+        }
+        return total - sum;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 5};
+        int n = 5;
+        System.out.println("Missing number is: " + findMissingNumber(arr, n));
+    }
+}
+
+
+2.class Node {
+    int data;
+    Node next;
+    
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class DetectLoop {
+    public static void main(String[] args) {
+    
+        Node head = new Node(1);
+        Node second = new Node(3);
+        Node third = new Node(4);
+
+  
+        head.next = second;
+        second.next = third;
+
+        // Creating a loop: third node points back to second
+        third.next = second;
+
+        // Check for loop
+        System.out.println("Loop exists: " + hasLoop(head));
+    }
+
+    public static boolean hasLoop(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+    
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            if (slow == fast) {
+                return true;
+            }
+        }
+
+        return false; 
+    }
+}
+
+
+
+3.public class ValidParentheses {
+    public static void main(String[] args) {
+        String s = "((()";
+        System.out.println("Longest valid parentheses: " + findLongest(s));
+    }
+
+    public static int findLongest(String s) {
+        int open = 0, close = 0, max = 0;
+
+     
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == '(') open++;
+            else close++;
+
+            if (open == close) max = Math.max(max, 2 * close);
+            else if (close > open) open = close = 0;
+        }
+
+        
+        open = close = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == '(') open++;
+            else close++;
+
+            if (open == close) max = Math.max(max, 2 * open);
+            else if (open > close) open = close = 0;
+        }
+
+        return max;
+    }
+}
